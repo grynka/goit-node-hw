@@ -1,5 +1,3 @@
-const listContacts = require('./contacts')
+const {listContacts, getContactById, removeContact, addContact} = require('./contacts')
 
-console.log("script is starts");
-
-listContacts();
+getContactById(1);

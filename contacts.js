@@ -10,7 +10,12 @@ function listContacts() {
   }
   
   function getContactById(contactId) {
-    // ...твій код
+    fs.readFile(contactPatch)
+        .then(data => {
+        contacts = data.toString()
+        console.log(contacts)
+    })
+    .catch(err => console.log(err.message));
   }
   
   function removeContact(contactId) {
@@ -21,4 +26,9 @@ function listContacts() {
     // ...твій код
   }
 
-  module.exports = listContacts;
+  module.exports = {
+    listContacts,
+    getContactById,
+    removeContact,
+    addContact
+};
