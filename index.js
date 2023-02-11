@@ -2,5 +2,5 @@ const {listContacts, getContactById, removeContact, addContact} = require('./con
 
 //getContactById(3)
 //listContacts()
-removeContact(88)
+removeContact(10)
 //addContact('Mango', 'mango@gmail.com', '322-22-22')

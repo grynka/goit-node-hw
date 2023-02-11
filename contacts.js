@@ -3,37 +3,29 @@ const path = require("path");
 const contactPatch = path.resolve("./db/contacts.json");
 
 function listContacts() {
-  console.log(contactPatch);
   fs.readFile(contactPatch)
-    .then((data) => console.log(data.toString()))
+    .then((data) => console.log(JSON.parse(data)))
     .catch((err) => console.log(err.message));
 }
 
 function getContactById(contactId) {
-  console.log("get id " + contactId);
   fs.readFile(contactPatch)
-    .then((data) => JSON.parse(data))
-    .then((contacts) => {
-      console.log(contacts.filter((item) => item.id.includes(contactId)));
-    })
+    .then((data) => {
+    let contacts = JSON.parse(data)
+    console.log(contacts.filter((item) => item.id.includes(contactId)));})
     .catch((err) => console.log(err.message));
 }
 
 function removeContact(contactId) {
-  console.log("del id " + contactId);
   fs.readFile(contactPatch)
-    .then((data) => JSON.parse(data))
-    .then((contacts) => {
-      contacts.push(contacts.filter((contact) => contact.id != contactId))
-      fs.writeFile(contactPatch, JSON.stringify(contacts))
-      .then(() => {
-        console.log("Append Success");
-      })
-      .catch((err) => {
-        console.log("Append Failed: " + err);
-      });      
+    .then((data) => {
+      let contacts = JSON.parse(data);
+      let newContacts = contacts.filter((contact) => contact.id != contactId);
+      console.log(newContacts);
+      fs.writeFile(contactPatch, JSON.stringify(newContacts))
     })
-    .catch((err) => console.log(err.message));
+
+  
 }
 
 function addContact(name, email, phone) {
