@@ -24,8 +24,7 @@ function removeContact(contactId) {
       console.log(newContacts);
       fs.writeFile(contactPatch, JSON.stringify(newContacts))
     })
-
-  
+    .catch (error => console.error(error.message)); 
 }
 
 function addContact(name, email, phone) {
@@ -47,10 +46,7 @@ function addContact(name, email, phone) {
           console.log("Append Failed: " + err);
         });
     })
-    .catch((err) => {
-      console.log("Read Error: " + err);
-    });
-  return;
+    .catch (error => console.error(error.message));
 }
 
 module.exports = {
