@@ -11,8 +11,9 @@ function listContacts() {
 function getContactById(contactId) {
   fs.readFile(contactPatch)
     .then((data) => {
-    let contacts = JSON.parse(data)
-    console.log(contacts.filter((item) => item.id.includes(contactId)));})
+      let contacts = JSON.parse(data);
+      console.log(contacts.filter((item) => item.id.includes(contactId)));
+    })
     .catch((err) => console.log(err.message));
 }
 
@@ -21,10 +22,15 @@ function removeContact(contactId) {
     .then((data) => {
       let contacts = JSON.parse(data);
       let newContacts = contacts.filter((contact) => contact.id != contactId);
-      console.log(newContacts);
       fs.writeFile(contactPatch, JSON.stringify(newContacts))
+        .then(() => {
+          console.log("Remove Success contact " + contactId);
+        })
+        .catch((err) => {
+          console.log("Remove Failed: " + err);
+        });
     })
-    .catch (error => console.error(error.message)); 
+    .catch((error) => console.error(error.message));
 }
 
 function addContact(name, email, phone) {
@@ -40,13 +46,13 @@ function addContact(name, email, phone) {
 
       fs.writeFile(contactPatch, JSON.stringify(json))
         .then(() => {
-          console.log("Append Success");
+          console.log("Append Success new contact " + name, email, phone);
         })
         .catch((err) => {
           console.log("Append Failed: " + err);
         });
     })
-    .catch (error => console.error(error.message));
+    .catch((error) => console.error(error.message));
 }
 
 module.exports = {
